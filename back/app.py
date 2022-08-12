@@ -1,4 +1,4 @@
-
+import os
 from flask import Flask, jsonify
 import sqlalchemy as sa
 from flask_cors import CORS
@@ -9,11 +9,11 @@ CORS(app)
 # database engine
 SQL_URI = sa.engine.URL.create(
     drivername='postgresql',
-    username='readonly',
-    password='w2UIO@#bg532!',
-    host='work-samples-db.cx4wctygygyq.us-east-1.rds.amazonaws.com',
-    database='work_samples',
-    port=5432,
+    username=os.getenv('PGUSER', ''),
+    password=os.getenv('PGPASSWORD', ''),
+    host=os.getenv('PGHOST', ''),
+    database=os.getenv('PGDATABASE', ''),
+    port=os.getenv('PGPORT', 5432),
 )
 engine = sa.create_engine(SQL_URI)
 
